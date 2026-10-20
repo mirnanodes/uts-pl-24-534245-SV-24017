@@ -1,0 +1,23 @@
+# FrankenPHP (Caddy) configuration for the SummitGear API.
+{
+	# Enable the FrankenPHP PHP module.
+	frankenphp
+
+	# The admin API is not needed inside the container.
+	admin off
+}
+
+# Plain HTTP on port 8000. TLS is not needed behind the Docker network.
+:8000 {
+	root * /app/public
+
+	encode zstd br gzip
+
+	# Access log to stdout, visible through `docker compose logs backend`.
+	log {
+		output stdout
+		format console
+	}
+
+	php_server
+}
