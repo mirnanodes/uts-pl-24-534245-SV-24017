@@ -1,0 +1,13 @@
+# Normalize line endings to LF everywhere (important on Windows:
+# shell scripts with CRLF break inside Linux containers).
+* text=auto eol=lf
+
+*.sh text eol=lf
+Dockerfile text eol=lf
+*.conf text eol=lf
+*.template text eol=lf
+
+# Binary files
+*.png binary
+*.jpg binary
+*.ico binary
