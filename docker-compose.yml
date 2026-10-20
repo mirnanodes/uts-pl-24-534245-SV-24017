@@ -1,0 +1,103 @@
+# SummitGear — full stack with one command:
+#   docker compose up -d --build
+#
+# Credentials are read from the root .env file (not committed).
+# Copy .env.example to .env first.
+
+name: summitgear
+
+services:
+  # ---------------------------------------------------------------------------
+  # MySQL database (data persisted in the named volume "db_data")
+  # ---------------------------------------------------------------------------
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:?Set DB_DATABASE in .env}
+      MYSQL_USER: ${DB_USERNAME:?Set DB_USERNAME in .env}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Set DB_PASSWORD in .env}
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u\"$$MYSQL_USER\" -p\"$$MYSQL_PASSWORD\" --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    networks:
+      - summitgear
+    # No "ports": the database is only reachable inside the Docker network
+    # (also avoids clashing with Laragon's MySQL on 3306).
+
+  # ---------------------------------------------------------------------------
+  # Laravel API served by FrankenPHP
+  # ---------------------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+    image: ${BACKEND_IMAGE:-summitgear-backend}:${IMAGE_TAG:-local}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      APP_NAME: SummitGear
+      APP_ENV: production
+      APP_DEBUG: "false"
+      APP_KEY: ${APP_KEY:?Set APP_KEY in .env}
+      APP_URL: ${APP_URL:-http://localhost:8080}
+      APP_LOCALE: id
+      LOG_CHANNEL: stderr
+      LOG_LEVEL: info
+      # Connect to MySQL through the Compose *service name*, not an IP.
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      CACHE_STORE: file
+      SESSION_DRIVER: file
+      QUEUE_CONNECTION: sync
+      SANCTUM_EXPIRATION: ${SANCTUM_EXPIRATION:-1440}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@summitgear.test}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Set ADMIN_PASSWORD in .env}
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    healthcheck:
+      test: ["CMD", "php", "-r", "exit(@file_get_contents('http://127.0.0.1:8000/api/health') === false ? 1 : 0);"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 40s
+    networks:
+      - summitgear
+
+  # ---------------------------------------------------------------------------
+  # Vue SPA served by Nginx; /api is proxied to http://backend:8000
+  # ---------------------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: /api
+    image: ${FRONTEND_IMAGE:-summitgear-frontend}:${IMAGE_TAG:-local}
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      API_UPSTREAM: http://backend:8000
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+    networks:
+      - summitgear
+
+volumes:
+  db_data:
+
+networks:
+  summitgear:
+    driver: bridge
