@@ -1,0 +1,21 @@
+{
+  "name": "summitgear-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "SummitGear - frontend Vue 3 untuk rental alat pendakian",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.20.0",
+    "vue": "^3.5.44",
+    "vue-router": "^5.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.10",
+    "vite": "^8.3.4"
+  }
+}

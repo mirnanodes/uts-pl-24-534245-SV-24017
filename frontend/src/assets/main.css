@@ -1,0 +1,319 @@
+/* ==========================================================================
+   SummitGear — global design tokens & base components
+   ========================================================================== */
+
+:root {
+  --color-forest: #24533a;
+  --color-forest-dark: #173a28;
+  --color-on-forest: #f4efe4;
+  --color-ember: #e0893a;
+
+  --color-bg: #f4f1ea;
+  --color-surface: #ffffff;
+  --color-border: #ddd6c8;
+  --color-text: #22251f;
+  --color-muted: #6b6a62;
+
+  --color-success: #1f6b3d;
+  --color-success-bg: #e6f2ea;
+  --color-success-border: #b9dbc5;
+  --color-danger: #a8322a;
+  --color-danger-bg: #fbeceb;
+  --color-danger-border: #efc2be;
+  --color-warning: #8a5a12;
+  --color-warning-bg: #fdf3e2;
+  --color-warning-border: #f0d6a8;
+  --color-info: #1f4f7a;
+  --color-info-bg: #e8f0f8;
+  --color-info-border: #bcd3e8;
+
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 1px 2px rgb(23 58 40 / 0.06), 0 4px 16px rgb(23 58 40 / 0.06);
+  --max-width: 1120px;
+
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--color-forest);
+}
+
+/* ---------- Layout ---------- */
+
+.app-main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.75rem 1rem 3rem;
+}
+
+.app-main--centered {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.app-flash {
+  margin-bottom: 1.25rem;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--color-forest-dark);
+}
+
+.page-subtitle {
+  margin: 0.2rem 0 0;
+  color: var(--color-muted);
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.1rem;
+  font: inherit;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s, border-color 0.15s, opacity 0.15s;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn:focus-visible,
+.input:focus-visible {
+  outline: 3px solid rgb(224 137 58 / 0.45);
+  outline-offset: 1px;
+}
+
+.btn--sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn--primary {
+  background: var(--color-forest);
+  color: var(--color-on-forest);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--color-forest-dark);
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.btn--outline:hover:not(:disabled) {
+  border-color: var(--color-forest);
+  color: var(--color-forest);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: currentColor;
+}
+
+.btn--danger {
+  background: var(--color-danger-bg);
+  border-color: var(--color-danger-border);
+  color: var(--color-danger);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background: var(--color-danger);
+  color: #fff;
+}
+
+/* ---------- Forms ---------- */
+
+.field__label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: inherit;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.input:focus {
+  border-color: var(--color-forest);
+}
+
+.input--invalid {
+  border-color: var(--color-danger);
+  background: var(--color-danger-bg);
+}
+
+.field__error {
+  margin: 0.3rem 0 0;
+  font-size: 0.85rem;
+  color: var(--color-danger);
+}
+
+/* ---------- Table ---------- */
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  background: #faf8f3;
+}
+
+.table th.text-right,
+.table td.text-right {
+  text-align: right;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover td {
+  background: #fbfaf6;
+}
+
+/* ---------- Badges ---------- */
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.badge--good {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.badge--needs_repair {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+.badge--damaged {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 640px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Table rows become stacked cards on small screens. */
+  .table thead {
+    display: none;
+  }
+
+  .table,
+  .table tbody,
+  .table tr,
+  .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.5rem 0;
+  }
+
+  .table td {
+    border: none;
+    padding: 0.35rem 1rem;
+    text-align: left !important;
+  }
+
+  .table td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+}
