@@ -1,0 +1,20 @@
+# Dependencies & build output are created inside the image
+node_modules
+dist
+
+# Secrets / local env
+.env
+.env.*
+!.env.example
+
+# VCS, editor, logs
+.git
+.gitignore
+.vscode
+.idea
+*.log
+.DS_Store
+
+# Docker build files themselves
+Dockerfile
+.dockerignore
