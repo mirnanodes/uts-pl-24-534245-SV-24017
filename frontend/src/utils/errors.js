@@ -10,7 +10,7 @@ export function getErrorMessage(error, fallback = 'Terjadi kesalahan. Silakan co
 }
 
 /**
- * Laravel 422 errors → { field: 'first message' }.
+ * Convert Laravel 422 errors into { field: 'first message' }.
  */
 export function getValidationErrors(error) {
   if (error?.response?.status !== 422) {

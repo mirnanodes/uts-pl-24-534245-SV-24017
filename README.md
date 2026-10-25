@@ -1,7 +1,7 @@
-# SummitGear — Rental Alat Pendakian
+# SummitGear - Rental Alat Pendakian
 
 UTS Konstruksi dan Evolusi Perangkat Lunak (SVPL261501), Gasal 2026/2027
-**Mirna — NIM 24/534245/SV/24017**
+**Mirna - NIM 24/534245/SV/24017**
 
 SummitGear adalah sistem manajemen katalog rental alat pendakian:
 
@@ -25,7 +25,7 @@ Seluruh stack berjalan dengan Docker Compose. CI/CD memakai GitHub Actions dan G
 │   │   ├── Enums/             # GearCategory, GearCondition
 │   │   ├── Http/Controllers/Api/
 │   │   ├── Http/Middleware/   # ForceJsonResponse
-│   │   ├── Http/Requests/     # LoginRequest, GearRequest (validasi → 422)
+│   │   ├── Http/Requests/     # LoginRequest, GearRequest (validasi gagal: 422)
 │   │   ├── Http/Resources/    # GearResource, UserResource
 │   │   └── Models/            # User, Gear
 │   ├── database/              # migrations, factories, seeders
@@ -42,7 +42,7 @@ Seluruh stack berjalan dengan Docker Compose. CI/CD memakai GitHub Actions dan G
 │   │   ├── components/        # GearForm, PaginationBar, ...
 │   │   └── views/             # Login, Daftar, Form
 │   ├── nginx/                 # template konfigurasi Nginx (proxy /api)
-│   └── Dockerfile             # multi-stage: Node → Nginx
+│   └── Dockerfile             # multi-stage: Node.js lalu Nginx
 ├── docker-compose.yml
 └── .env.example
 ```
@@ -81,8 +81,8 @@ frontend (Nginx :80)  ── proxy_pass ──►  backend (FrankenPHP :8000, La
 
 | Method | Endpoint | Auth | Keterangan |
 |---|---|---|---|
-| GET | `/api/health` | – | Status API, database, dan SAPI (`frankenphp`) |
-| POST | `/api/login` | – | 200 + token · 422 bila validasi/kredensial salah |
+| GET | `/api/health` | Tidak | Status API, database, dan SAPI (`frankenphp`) |
+| POST | `/api/login` | Tidak | 200 + token; 422 bila validasi/kredensial salah |
 | GET | `/api/me` | Bearer | Profil pengguna |
 | POST | `/api/logout` | Bearer | Mencabut token yang sedang dipakai |
 | GET | `/api/gear-options` | Bearer | Pilihan kategori & kondisi |
@@ -108,9 +108,9 @@ Postman: impor `backend/postman/SummitGear.postman_collection.json`, isi variabe
 
 | Event | test-backend | build-frontend | deploy |
 |---|:---:|:---:|:---:|
-| Push ke branch fitur / `dev` | ✅ | ✅ | ⏭️ dilewati |
-| Pull Request ke `dev` / `main` | ✅ | ✅ | ⏭️ dilewati |
-| Push ke `main` | ✅ | ✅ | ✅ |
+| Push ke branch fitur / `dev` | Ya | Ya | Dilewati |
+| Pull Request ke `dev` / `main` | Ya | Ya | Dilewati |
+| Push ke `main` | Ya | Ya | Ya |
 
 Job `deploy` melakukan tiga hal:
 

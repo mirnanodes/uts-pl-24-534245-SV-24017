@@ -166,7 +166,7 @@ onBeforeUnmount(() => clearTimeout(searchTimer));
               <small v-if="gear.description" class="table__desc">{{ gear.description }}</small>
             </td>
             <td data-label="Kategori">{{ gear.category_label }}</td>
-            <td data-label="Merek">{{ gear.brand || '—' }}</td>
+            <td data-label="Merek">{{ gear.brand || '-' }}</td>
             <td data-label="Harga / Hari" class="text-right">{{ formatRupiah(gear.daily_price) }}</td>
             <td data-label="Stok" class="text-right">{{ gear.stock }}</td>
             <td data-label="Kondisi">

@@ -1,6 +1,6 @@
 # Nginx config for the SummitGear SPA.
 # ${API_UPSTREAM} is substituted by the official nginx image at startup
-# (default: http://backend:8000 — the backend *service name* in Compose).
+# (default: http://backend:8000, the backend *service name* in Compose).
 
 server {
     listen 80;

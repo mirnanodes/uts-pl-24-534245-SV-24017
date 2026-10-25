@@ -27,7 +27,7 @@ Test memakai SQLite in-memory (lihat `phpunit.xml`), jadi tidak butuh MySQL.
 |---|---|
 | `routes/api.php` | Semua endpoint `/api/*` |
 | `app/Http/Controllers/Api` | `AuthController`, `GearController`, `HealthController` |
-| `app/Http/Requests` | Validasi input (gagal → 422) |
+| `app/Http/Requests` | Validasi input (gagal: 422) |
 | `app/Http/Resources` | Format respons JSON |
 | `app/Http/Middleware/ForceJsonResponse.php` | Memaksa respons JSON (401 tidak jadi redirect) |
 | `bootstrap/app.php` | Registrasi route, middleware, penanganan exception JSON |

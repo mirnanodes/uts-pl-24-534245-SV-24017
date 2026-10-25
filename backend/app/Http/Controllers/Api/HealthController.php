@@ -12,7 +12,7 @@ use Throwable;
 class HealthController extends Controller
 {
     /**
-     * GET /api/health — used by Docker healthchecks and the CI smoke test.
+     * GET /api/health: used by Docker healthchecks and the CI smoke test.
      *
      * "server" shows which PHP SAPI handled the request:
      * "frankenphp" in Docker, "cli-server" with `php artisan serve`.

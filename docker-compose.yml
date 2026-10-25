@@ -1,4 +1,4 @@
-# SummitGear — full stack with one command:
+# SummitGear: full stack with one command:
 #   docker compose up -d --build
 #
 # Credentials are read from the root .env file (not committed).
