@@ -1,5 +1,5 @@
 # =============================================================================
-# SummitGear API — Laravel 12 served by FrankenPHP (PHP 8.3)
+# SummitGear API: Laravel 12 served by FrankenPHP (PHP 8.3)
 # =============================================================================
 FROM dunglas/frankenphp:1.13-php8.3-bookworm
 

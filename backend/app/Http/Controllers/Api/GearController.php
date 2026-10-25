@@ -18,7 +18,7 @@ class GearController extends Controller
     private const MAX_PER_PAGE = 50;
 
     /**
-     * GET /api/gears — paginated list with optional search & category filter.
+     * GET /api/gears: paginated list with optional search & category filter.
      */
     public function index(Request $request): AnonymousResourceCollection
     {
@@ -79,7 +79,7 @@ class GearController extends Controller
     }
 
     /**
-     * GET /api/gear-options — choices for the frontend select inputs.
+     * GET /api/gear-options: choices for the frontend select inputs.
      */
     public function options(): JsonResponse
     {

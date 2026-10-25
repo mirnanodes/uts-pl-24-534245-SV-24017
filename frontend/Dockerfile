@@ -1,5 +1,5 @@
 # =============================================================================
-# Stage 1 — build the Vue app with Node.js
+# Stage 1: build the Vue app with Node.js
 # =============================================================================
 FROM node:22-alpine AS build
 
@@ -18,7 +18,7 @@ ENV VITE_API_URL=${VITE_API_URL}
 RUN npm run build
 
 # =============================================================================
-# Stage 2 — serve the static build with Nginx (no Node.js, no node_modules)
+# Stage 2: serve the static build with Nginx (no Node.js, no node_modules)
 # =============================================================================
 FROM nginx:1.30-alpine AS runtime
 

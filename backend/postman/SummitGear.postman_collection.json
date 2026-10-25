@@ -1,8 +1,8 @@
 {
   "info": {
     "_postman_id": "83738f52-78fe-4b64-b47d-06a794ff5b92",
-    "name": "SummitGear API (UTS KEPL)",
-    "description": "RESTful API rental alat pendakian.\n\nJalankan berurutan (Collection Runner). Request **Login** otomatis menyimpan token ke variabel `token`, dan **Tambah Alat** menyimpan `gear_id`.\n\nUbah `base_url` ke `http://localhost:8080/api` untuk lewat proxy Nginx frontend.",
+    "name": "SummitGear API",
+    "description": "RESTful API rental alat pendakian SummitGear.\n\nJalankan berurutan dengan Collection Runner. Request Login menyimpan token ke variabel token, dan Tambah Alat menyimpan gear_id.\n\nGanti base_url menjadi http://localhost:8080/api untuk mengakses lewat Nginx frontend.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "auth": {
@@ -39,10 +39,10 @@
   ],
   "item": [
     {
-      "name": "0. Health",
+      "name": "Health",
       "item": [
         {
-          "name": "Health check (publik)",
+          "name": "Health Check",
           "request": {
             "method": "GET",
             "header": [
@@ -75,7 +75,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 200 OK\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
                   "pm.test(\"Dilayani FrankenPHP\", () => pm.expect(pm.response.json().server).to.eql(\"frankenphp\"));"
                 ]
               }
@@ -85,10 +85,10 @@
       ]
     },
     {
-      "name": "1. Auth",
+      "name": "Auth",
       "item": [
         {
-          "name": "Akses tanpa token → 401",
+          "name": "Akses Tanpa Token",
           "request": {
             "method": "GET",
             "header": [
@@ -121,14 +121,14 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 401 Unauthorized\", () => pm.response.to.have.status(401));"
+                  "pm.test(\"Status 401\", () => pm.response.to.have.status(401));"
                 ]
               }
             }
           ]
         },
         {
-          "name": "Login gagal (validasi) → 422",
+          "name": "Login Invalid",
           "request": {
             "method": "POST",
             "header": [
@@ -170,7 +170,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 422 Unprocessable\", () => pm.response.to.have.status(422));",
+                  "pm.test(\"Status 422\", () => pm.response.to.have.status(422));",
                   "pm.test(\"Ada error email & password\", () => { const e = pm.response.json().errors; pm.expect(e).to.have.property(\"email\"); pm.expect(e).to.have.property(\"password\"); });"
                 ]
               }
@@ -178,7 +178,7 @@
           ]
         },
         {
-          "name": "Login → 200 + token",
+          "name": "Login",
           "request": {
             "method": "POST",
             "header": [
@@ -220,7 +220,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 200 OK\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
                   "const json = pm.response.json();",
                   "pm.test(\"Token tersedia\", () => pm.expect(json.data.token).to.be.a(\"string\"));",
                   "pm.collectionVariables.set(\"token\", json.data.token);"
@@ -230,7 +230,7 @@
           ]
         },
         {
-          "name": "Profil (me)",
+          "name": "Profil",
           "request": {
             "method": "GET",
             "header": [
@@ -260,7 +260,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 200 OK\", () => pm.response.to.have.status(200));"
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
                 ]
               }
             }
@@ -269,10 +269,10 @@
       ]
     },
     {
-      "name": "2. Gears (CRUD)",
+      "name": "Gears",
       "item": [
         {
-          "name": "Opsi kategori & kondisi",
+          "name": "Opsi Kategori dan Kondisi",
           "request": {
             "method": "GET",
             "header": [
@@ -302,14 +302,14 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 200 OK\", () => pm.response.to.have.status(200));"
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
                 ]
               }
             }
           ]
         },
         {
-          "name": "Tampil semua (paginasi)",
+          "name": "Tampil Semua Alat",
           "request": {
             "method": "GET",
             "header": [
@@ -339,14 +339,14 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 200 OK\", () => pm.response.to.have.status(200));"
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
                 ]
               }
             }
           ]
         },
         {
-          "name": "Tambah alat → 201",
+          "name": "Tambah Alat",
           "request": {
             "method": "POST",
             "header": [
@@ -385,7 +385,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 201 Created\", () => pm.response.to.have.status(201));",
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));",
                   "pm.collectionVariables.set(\"gear_id\", pm.response.json().data.id);"
                 ]
               }
@@ -393,7 +393,7 @@
           ]
         },
         {
-          "name": "Tambah alat tidak valid → 422",
+          "name": "Tambah Alat Invalid",
           "request": {
             "method": "POST",
             "header": [
@@ -432,14 +432,14 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 422 Unprocessable\", () => pm.response.to.have.status(422));"
+                  "pm.test(\"Status 422\", () => pm.response.to.have.status(422));"
                 ]
               }
             }
           ]
         },
         {
-          "name": "Tampil satu",
+          "name": "Tampil Satu Alat",
           "request": {
             "method": "GET",
             "header": [
@@ -470,14 +470,14 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 200 OK\", () => pm.response.to.have.status(200));"
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
                 ]
               }
             }
           ]
         },
         {
-          "name": "Ubah alat",
+          "name": "Ubah Alat",
           "request": {
             "method": "PUT",
             "header": [
@@ -517,7 +517,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 200 OK\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
                   "pm.test(\"Nama berubah\", () => pm.expect(pm.response.json().data.name).to.eql(\"Tenda Dome 6P\"));"
                 ]
               }
@@ -525,7 +525,7 @@
           ]
         },
         {
-          "name": "Hapus alat",
+          "name": "Hapus Alat",
           "request": {
             "method": "DELETE",
             "header": [
@@ -556,14 +556,14 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 200 OK\", () => pm.response.to.have.status(200));"
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
                 ]
               }
             }
           ]
         },
         {
-          "name": "Tampil satu setelah dihapus → 404",
+          "name": "Tampil Alat Terhapus",
           "request": {
             "method": "GET",
             "header": [
@@ -594,7 +594,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 404 Not Found\", () => pm.response.to.have.status(404));"
+                  "pm.test(\"Status 404\", () => pm.response.to.have.status(404));"
                 ]
               }
             }
@@ -603,7 +603,7 @@
       ]
     },
     {
-      "name": "3. Logout",
+      "name": "Logout",
       "item": [
         {
           "name": "Logout",
@@ -636,7 +636,7 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status 200 OK\", () => pm.response.to.have.status(200));"
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));"
                 ]
               }
             }

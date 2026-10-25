@@ -1,6 +1,6 @@
 <template>
   <section class="not-found card">
-    <h1 class="page-title">404 — Jalur tidak ditemukan</h1>
+    <h1 class="page-title">404 - Jalur tidak ditemukan</h1>
     <p class="page-subtitle">Sepertinya kamu tersesat. Kembali ke base camp?</p>
     <RouterLink :to="{ name: 'gears.index' }" class="btn btn--primary">Ke daftar alat</RouterLink>
   </section>
