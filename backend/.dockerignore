@@ -1,0 +1,38 @@
+# Version control & CI
+.git
+.github
+.gitignore
+.gitattributes
+
+# Secrets / local env (only the example is allowed)
+.env
+.env.*
+!.env.example
+
+# Dependencies are installed inside the image
+vendor
+node_modules
+
+# Runtime caches, logs and local databases
+storage/logs/*
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/app/public/*
+bootstrap/cache/*.php
+database/*.sqlite
+*.log
+
+# Development-only files
+tests
+phpunit.xml
+.phpunit.cache
+.phpunit.result.cache
+postman
+.editorconfig
+.idea
+.vscode
+
+# Docker build files themselves
+Dockerfile
+.dockerignore
